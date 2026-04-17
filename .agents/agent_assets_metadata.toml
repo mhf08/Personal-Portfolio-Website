@@ -1,0 +1,62 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "6MwCZVcXSKh82s-B5Qjfo"
+uri = "file://artifacts/personal-website/public/images/hero.png"
+type = "image"
+title = "Hero Image"
+
+[[generated]]
+id = "hcdIpSw0LC9MC20xWIkAo"
+uri = "file://artifacts/personal-website/public/images/project-ammonia.png"
+type = "image"
+title = "IoT Ammonia Sensor"
+
+[[generated]]
+id = "mZ7S2PQpO6q1Wy6yEnI9p"
+uri = "file://artifacts/personal-website/public/images/project-hydropedal.png"
+type = "image"
+title = "HydroPedal Pump"
+
+[[generated]]
+id = "jybDrvxmJfgWs75pTs_8q"
+uri = "file://artifacts/personal-website/public/images/project-drilling.png"
+type = "image"
+title = "Radial Drilling Machine"
+
+[[generated]]
+id = "j9FfNy5QPOOW8skNZ3PLu"
+uri = "file://artifacts/personal-website/public/images/photo-bw-1.png"
+type = "image"
+title = "BW Industrial Scene"
+
+[[generated]]
+id = "ebhAvqKBgYTxyI3R8-0M8"
+uri = "file://artifacts/personal-website/public/images/photo-bw-2.png"
+type = "image"
+title = "BW Street Photography"
+
+[[generated]]
+id = "Gnj-p6ACyQ6BiC-u951BZ"
+uri = "file://artifacts/personal-website/public/images/photo-bw-3.png"
+type = "image"
+title = "BW Factory Details"
+
+[[generated]]
+id = "NzXS07oM5a13ReKnzuOu6"
+uri = "file://artifacts/personal-website/public/images/photo-bw-4.png"
+type = "image"
+title = "BW Architecture"
+
+[[generated]]
+id = "Uv99KzhcPptarfB2pjpzY"
+uri = "file://artifacts/personal-website/public/images/photo-nature-1.png"
+type = "image"
+title = "Bengal River Delta"
+
+[[generated]]
+id = "RAIRkcQGRUx7cAxKMwQ2Z"
+uri = "file://artifacts/personal-website/public/images/photo-nature-2.png"
+type = "image"
+title = "Forest Flora"
