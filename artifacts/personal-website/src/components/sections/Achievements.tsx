@@ -1,7 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { X, FileText } from "lucide-react";
-import { PdfImage } from "@/components/ui/PdfImage";
+import { X } from "lucide-react";
 
 const achievements = [
   {
@@ -29,8 +28,9 @@ const achievements = [
       "/images/wash-photo-1.jpg",
       "/images/wash-photo-2.jpg",
       "/images/wash-photo-3.jpg",
+      "/images/wash-certificate.png",
     ],
-    certificate: "/docs/wash-certificate.pdf",
+    certificate: null,
   },
 ];
 
@@ -94,29 +94,6 @@ function AchievementCard({ item, idx }: { item: typeof achievements[0]; idx: num
           </div>
         )}
 
-        {/* Certificate — rendered as image */}
-        {item.certificate && (
-          <div className="mt-5 border-t border-border/30 pt-5">
-            <p className="flex items-center gap-2 text-sm font-mono tracking-wide text-primary mb-3">
-              <FileText className="w-4 h-4" />
-              <span>Certificate</span>
-            </p>
-            <div className="border border-border/50 overflow-hidden">
-              <PdfImage
-                src={item.certificate}
-                alt="IRC WASH Water Hackathon Certificate"
-              />
-            </div>
-            <a
-              href={item.certificate}
-              download
-              className="inline-flex items-center gap-1.5 mt-2 text-xs text-muted-foreground hover:text-primary transition-colors"
-            >
-              <FileText className="w-3 h-3" />
-              Download PDF
-            </a>
-          </div>
-        )}
       </motion.div>
 
       {/* Lightbox */}
