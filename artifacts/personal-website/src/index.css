@@ -61,95 +61,100 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* Light mode (fallback if toggled, though design requests dark by default, we'll configure both but default to dark) */
+/* Palette derived from the gear+shutter favicon:
+   Background charcoal-slate #2B3240 → 213 20% 21%
+   Golden amber gear #D4A017         → 42  83% 46%
+*/
 :root {
-  --background: 220 20% 98%;
-  --foreground: 222 47% 11%;
-  
-  --border: 214 32% 91%;
-  
+  --background: 213 20% 96%;
+  --foreground: 213 20% 12%;
+
+  --border: 213 20% 86%;
+
   --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
-  --card-border: 214 32% 91%;
-  
+  --card-foreground: 213 20% 12%;
+  --card-border: 213 20% 86%;
+
   --popover: 0 0% 100%;
-  --popover-foreground: 222 47% 11%;
-  --popover-border: 214 32% 91%;
-  
-  --primary: 38 92% 50%; /* Warm amber/gold */
+  --popover-foreground: 213 20% 12%;
+  --popover-border: 213 20% 86%;
+
+  --primary: 42 83% 46%;
   --primary-foreground: 0 0% 10%;
-  
-  --secondary: 210 40% 96%;
-  --secondary-foreground: 222 47% 11%;
-  
-  --muted: 210 40% 96%;
-  --muted-foreground: 215 16% 47%;
-  
-  --accent: 38 92% 50%;
+
+  --secondary: 213 20% 92%;
+  --secondary-foreground: 213 20% 12%;
+
+  --muted: 213 20% 92%;
+  --muted-foreground: 213 15% 45%;
+
+  --accent: 42 83% 46%;
   --accent-foreground: 0 0% 10%;
-  
+
   --destructive: 0 84% 60%;
   --destructive-foreground: 210 40% 98%;
 
-  --input: 214 32% 91%;
-  --ring: 38 92% 50%;
+  --input: 213 20% 86%;
+  --ring: 42 83% 46%;
 
-  --sidebar: 0 0% 98%;
-  --sidebar-foreground: 240 5.3% 26.1%;
-  --sidebar-border: 240 5.9% 90%;
-  --sidebar-primary: 240 5.9% 10%;
-  --sidebar-primary-foreground: 0 0% 98%;
-  --sidebar-accent: 240 4.8% 95.9%;
-  --sidebar-accent-foreground: 240 5.9% 10%;
-  --sidebar-ring: 217.2 91.2% 59.8%;
+  --sidebar: 213 20% 96%;
+  --sidebar-foreground: 213 20% 12%;
+  --sidebar-border: 213 20% 86%;
+  --sidebar-primary: 42 83% 46%;
+  --sidebar-primary-foreground: 0 0% 10%;
+  --sidebar-accent: 213 20% 92%;
+  --sidebar-accent-foreground: 213 20% 12%;
+  --sidebar-ring: 42 83% 46%;
 
   --app-font-sans: 'Inter', sans-serif;
   --app-font-serif: 'Playfair Display', serif;
   --app-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  
-  --radius: 0rem; 
+
+  --radius: 0rem;
 }
 
 .dark {
-  --background: 222 47% 7%; /* Deep navy/near-black */
-  --foreground: 210 40% 98%;
-  
-  --border: 216 34% 17%;
-  
-  --card: 222 47% 9%;
-  --card-foreground: 210 40% 98%;
-  --card-border: 216 34% 17%;
-  
-  --popover: 222 47% 9%;
-  --popover-foreground: 210 40% 98%;
-  --popover-border: 216 34% 17%;
-  
-  --primary: 38 92% 50%; /* Warm amber/gold */
-  --primary-foreground: 222 47% 7%;
-  
-  --secondary: 217 32% 17%;
-  --secondary-foreground: 210 40% 98%;
-  
-  --muted: 217 32% 17%;
-  --muted-foreground: 215 20.2% 65.1%;
-  
-  --accent: 38 92% 50%;
-  --accent-foreground: 222 47% 7%;
-  
+  /* Charcoal-slate matching the favicon background */
+  --background: 213 20% 13%;
+  --foreground: 210 20% 93%;
+
+  --border: 213 20% 22%;
+
+  --card: 213 20% 17%;
+  --card-foreground: 210 20% 93%;
+  --card-border: 213 20% 22%;
+
+  --popover: 213 20% 17%;
+  --popover-foreground: 210 20% 93%;
+  --popover-border: 213 20% 22%;
+
+  /* Golden amber matching the favicon gear */
+  --primary: 42 83% 50%;
+  --primary-foreground: 213 20% 10%;
+
+  --secondary: 213 20% 22%;
+  --secondary-foreground: 210 20% 93%;
+
+  --muted: 213 20% 22%;
+  --muted-foreground: 213 15% 60%;
+
+  --accent: 42 83% 50%;
+  --accent-foreground: 213 20% 10%;
+
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 210 40% 98%;
 
-  --input: 216 34% 17%;
-  --ring: 38 92% 50%;
+  --input: 213 20% 22%;
+  --ring: 42 83% 50%;
 
-  --sidebar: 240 5.9% 10%;
-  --sidebar-foreground: 240 4.8% 95.9%;
-  --sidebar-border: 240 3.7% 15.9%;
-  --sidebar-primary: 224.3 76.3% 48%;
-  --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 240 3.7% 15.9%;
-  --sidebar-accent-foreground: 240 4.8% 95.9%;
-  --sidebar-ring: 217.2 91.2% 59.8%;
+  --sidebar: 213 20% 10%;
+  --sidebar-foreground: 210 20% 93%;
+  --sidebar-border: 213 20% 22%;
+  --sidebar-primary: 42 83% 50%;
+  --sidebar-primary-foreground: 213 20% 10%;
+  --sidebar-accent: 213 20% 22%;
+  --sidebar-accent-foreground: 210 20% 93%;
+  --sidebar-ring: 42 83% 50%;
 }
 
 @layer base {

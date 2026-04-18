@@ -21,7 +21,7 @@ const educationData = [
     period: "2018 – 2020",
     logo: notreDameLogo,
     details: [
-      { label: "GPA", value: "5.00 / 5.00 (Perfect)" },
+      { label: "GPA", value: "5.00 / 5.00" },
       { label: "Award", value: "Awarded for Perfect Attendance" },
     ]
   }

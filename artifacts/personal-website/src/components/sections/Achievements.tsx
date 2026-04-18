@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { X, FileText, ChevronDown, ChevronUp } from "lucide-react";
+import { X, FileText } from "lucide-react";
+import { PdfImage } from "@/components/ui/PdfImage";
 
 const achievements = [
   {
@@ -53,7 +54,6 @@ const certs = [
 
 function AchievementCard({ item, idx }: { item: typeof achievements[0]; idx: number }) {
   const [lightboxImg, setLightboxImg] = useState<string | null>(null);
-  const [pdfOpen, setPdfOpen] = useState(false);
 
   return (
     <>
@@ -94,46 +94,27 @@ function AchievementCard({ item, idx }: { item: typeof achievements[0]; idx: num
           </div>
         )}
 
-        {/* Certificate PDF */}
+        {/* Certificate — rendered as image */}
         {item.certificate && (
           <div className="mt-5 border-t border-border/30 pt-5">
-            <button
-              onClick={() => setPdfOpen(!pdfOpen)}
-              className="flex items-center gap-2 text-sm font-mono tracking-wide text-primary hover:text-primary/80 transition-colors"
-            >
+            <p className="flex items-center gap-2 text-sm font-mono tracking-wide text-primary mb-3">
               <FileText className="w-4 h-4" />
               <span>Certificate</span>
-              {pdfOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-            </button>
-
-            <AnimatePresence>
-              {pdfOpen && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.35 }}
-                  className="overflow-hidden"
-                >
-                  <div className="mt-3 border border-border/50 overflow-hidden">
-                    <iframe
-                      src={item.certificate}
-                      title="IRC WASH Certificate"
-                      className="w-full"
-                      style={{ height: "480px" }}
-                    />
-                  </div>
-                  <a
-                    href={item.certificate}
-                    download
-                    className="inline-flex items-center gap-1.5 mt-2 text-xs text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    <FileText className="w-3 h-3" />
-                    Download PDF
-                  </a>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            </p>
+            <div className="border border-border/50 overflow-hidden">
+              <PdfImage
+                src={item.certificate}
+                alt="IRC WASH Water Hackathon Certificate"
+              />
+            </div>
+            <a
+              href={item.certificate}
+              download
+              className="inline-flex items-center gap-1.5 mt-2 text-xs text-muted-foreground hover:text-primary transition-colors"
+            >
+              <FileText className="w-3 h-3" />
+              Download PDF
+            </a>
           </div>
         )}
       </motion.div>
