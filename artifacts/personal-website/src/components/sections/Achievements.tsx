@@ -1,6 +1,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { X } from "lucide-react";
+import { TextReveal } from "@/components/ui/TextReveal";
+import { MediaLightbox, MediaItem } from "@/components/ui/MediaLightbox";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const achievements = [
   {
@@ -38,7 +47,8 @@ const certs = [
   {
     title: "Lean Six Sigma White Belt",
     org: "The Council for Six Sigma Certification (C.S.S.C.)",
-    desc: "DMAIC mastery applied during RANCON industrial attachment."
+    desc: "DMAIC mastery applied during RANCON industrial attachment.",
+    image: "/images/lean-six-sigma-cert.png"
   },
   {
     title: "Advanced Applications of MS Office for Engineers",
@@ -52,86 +62,92 @@ const certs = [
   }
 ];
 
-function AchievementCard({ item, idx }: { item: typeof achievements[0]; idx: number }) {
-  const [lightboxImg, setLightboxImg] = useState<string | null>(null);
-
+function AchievementCard({ item, idx, onPhotoClick }: { item: typeof achievements[0]; idx: number, onPhotoClick: (src: string) => void }) {
   return (
-    <>
-      <motion.div
-        key={idx}
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6, delay: idx * 0.1 }}
-        className="bg-card border border-border/50 p-6 group hover:border-primary/50 transition-colors"
-      >
-        <h4 className="text-lg font-serif text-foreground mb-4 group-hover:text-primary transition-colors">{item.title}</h4>
-        <div className="space-y-3 text-sm text-muted-foreground font-light">
-          <p><strong className="text-foreground font-medium">The Challenge:</strong> {item.challenge}</p>
-          <p><strong className="text-foreground font-medium">Innovation/Concept:</strong> {item.concept}</p>
-          <p><strong className="text-primary">Impact/Recognition:</strong> {item.impact}</p>
+    <motion.div
+      key={idx}
+      initial={{ opacity: 0, x: -20 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, delay: idx * 0.1 }}
+      className="bg-card border border-border/50 p-6 group hover:border-primary/50 transition-colors"
+    >
+      <h4 className="text-lg font-serif text-foreground mb-4 group-hover:text-primary transition-colors">{item.title}</h4>
+      <div className="space-y-3 text-sm text-muted-foreground font-light">
+        <div className="flex gap-2">
+          <strong className="text-foreground font-medium shrink-0">The Challenge:</strong> 
+          <TextReveal>{item.challenge}</TextReveal>
         </div>
+        <div className="flex gap-2">
+          <strong className="text-foreground font-medium shrink-0">Innovation/Concept:</strong> 
+          <TextReveal>{item.concept}</TextReveal>
+        </div>
+        <div className="flex gap-2">
+          <strong className="text-primary shrink-0">Impact/Recognition:</strong> 
+          <TextReveal>{item.impact}</TextReveal>
+        </div>
+      </div>
 
-        {/* Photo Gallery */}
-        {item.photos.length > 0 && (
-          <div className="mt-5">
-            <p className="text-xs font-mono tracking-widest text-primary uppercase mb-3">Photos</p>
-            <div className="grid grid-cols-3 gap-2">
+      {/* Photo Carousel */}
+      {item.photos.length > 0 && (
+        <div className="mt-8">
+          <p className="text-xs font-mono tracking-widest text-primary uppercase mb-4">Visual Record</p>
+          <Carousel className="w-full">
+            <CarouselContent>
               {item.photos.map((src, i) => (
-                <button
-                  key={i}
-                  onClick={() => setLightboxImg(src)}
-                  className="aspect-square overflow-hidden border border-border/50 hover:border-primary/60 transition-colors"
-                >
-                  <img
-                    src={src}
-                    alt={`Hackathon photo ${i + 1}`}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                </button>
+                <CarouselItem key={i}>
+                  <div 
+                    className="relative aspect-[4/3] overflow-hidden border border-border/50 hover:border-primary/40 transition-colors cursor-zoom-in group/img bg-muted/20"
+                    onClick={() => onPhotoClick(src)}
+                  >
+                    {/* Blurred Backdrop */}
+                    <img 
+                      src={src} 
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110"
+                    />
+                    
+                    {/* Main Image */}
+                    <img
+                      src={src}
+                      alt={`${item.title} — photo ${i + 1}`}
+                      className="relative w-full h-full object-contain transition-transform duration-500 group-hover/img:scale-105 z-10"
+                    />
+                    
+                    <div className="absolute inset-0 bg-black/5 group-hover/img:bg-transparent transition-colors duration-300 z-20" />
+                  </div>
+                </CarouselItem>
               ))}
-            </div>
-          </div>
-        )}
-
-      </motion.div>
-
-      {/* Lightbox */}
-      <AnimatePresence>
-        {lightboxImg && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
-            onClick={() => setLightboxImg(null)}
-          >
-            <button
-              onClick={() => setLightboxImg(null)}
-              className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors"
-            >
-              <X className="w-8 h-8" />
-            </button>
-            <motion.img
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              src={lightboxImg}
-              alt="Hackathon photo"
-              className="max-w-full max-h-[90vh] object-contain"
-              onClick={(e) => e.stopPropagation()}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+            </CarouselContent>
+            {item.photos.length > 1 && (
+              <div className="flex justify-end gap-2 mt-4">
+                <CarouselPrevious className="static translate-y-0 h-8 w-8 border-border/50 bg-background/50 hover:bg-primary hover:text-white transition-all" />
+                <CarouselNext className="static translate-y-0 h-8 w-8 border-border/50 bg-background/50 hover:bg-primary hover:text-white transition-all" />
+              </div>
+            )}
+          </Carousel>
+        </div>
+      )}
+    </motion.div>
   );
 }
 
 export function Achievements() {
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+
+  const allPhotos: MediaItem[] = [
+    ...achievements.flatMap(a => a.photos.map(url => ({ url, type: "image" as const, title: a.title }))),
+    ...certs.filter(c => c.image).map(c => ({ url: c.image!, type: "image" as const, title: c.title }))
+  ];
+
+  const handlePhotoClick = (url: string) => {
+    const idx = allPhotos.findIndex(p => p.url === url);
+    setSelectedIdx(idx);
+  };
+
   return (
     <section id="achievements" className="py-32 bg-background">
-      <div className="container mx-auto px-6 max-w-6xl">
+      <div className="container mx-auto px-8 max-w-[1400px]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
 
           {/* Achievements */}
@@ -149,7 +165,7 @@ export function Achievements() {
 
             <div className="space-y-10">
               {achievements.map((item, idx) => (
-                <AchievementCard key={idx} item={item} idx={idx} />
+                <AchievementCard key={idx} item={item} idx={idx} onPhotoClick={handlePhotoClick} />
               ))}
             </div>
           </div>
@@ -185,7 +201,25 @@ export function Achievements() {
                       <h4 className="text-base font-serif text-foreground">{cert.title}</h4>
                       <time className="text-xs font-mono text-primary uppercase tracking-widest">{cert.org}</time>
                     </div>
-                    <p className="text-sm text-muted-foreground font-light">{cert.desc}</p>
+                    <TextReveal className="text-sm text-muted-foreground font-light">{cert.desc}</TextReveal>
+                    {cert.image && (
+                      <div className="mt-4 relative aspect-[4/3] md:aspect-video overflow-hidden rounded border border-border/50 bg-muted/20 group/cert">
+                        {/* Blurred Backdrop */}
+                        <img 
+                          src={cert.image} 
+                          alt=""
+                          className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110"
+                        />
+                        
+                        {/* Main Image */}
+                        <img 
+                          src={cert.image} 
+                          alt={`${cert.title} Certificate`} 
+                          className="relative w-full h-full object-contain hover:scale-[1.02] transition-transform duration-300 cursor-zoom-in z-10" 
+                          onClick={() => handlePhotoClick(cert.image!)}
+                        />
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               ))}
@@ -194,6 +228,13 @@ export function Achievements() {
 
         </div>
       </div>
+
+      <MediaLightbox 
+        items={allPhotos}
+        index={selectedIdx}
+        onClose={() => setSelectedIdx(null)}
+        onNavigate={setSelectedIdx}
+      />
     </section>
   );
 }

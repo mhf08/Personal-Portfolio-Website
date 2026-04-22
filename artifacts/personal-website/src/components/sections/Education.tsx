@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import buetLogo from "@assets/buet-seeklogo_1776505671675.png";
 import notreDameLogo from "@assets/Notre_Dame_College,_Dhaka_Monogram.svg_1776505694867.png";
+import { TextReveal } from "@/components/ui/TextReveal";
 
 const educationData = [
   {
@@ -30,7 +31,7 @@ const educationData = [
 export function Education() {
   return (
     <section id="education" className="py-32 bg-card">
-      <div className="container mx-auto px-6 max-w-5xl">
+      <div className="container mx-auto px-8 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -76,9 +77,9 @@ export function Education() {
 
                 <ul className="space-y-4">
                   {edu.details.map((detail, dIdx) => (
-                    <li key={dIdx} className="text-muted-foreground leading-relaxed">
-                      <strong className="text-foreground font-medium mr-2">{detail.label}:</strong>
-                      <span className="font-light">{detail.value}</span>
+                    <li key={dIdx} className="text-muted-foreground leading-relaxed flex flex-wrap gap-x-2">
+                      <strong className="text-foreground font-medium">{detail.label}:</strong>
+                      <TextReveal className="font-light">{detail.value}</TextReveal>
                     </li>
                   ))}
                 </ul>

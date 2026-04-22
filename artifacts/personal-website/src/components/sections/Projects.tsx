@@ -1,6 +1,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, PlayCircle } from "lucide-react";
+import { TextReveal } from "@/components/ui/TextReveal";
+import { MediaLightbox, MediaItem } from "@/components/ui/MediaLightbox";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const projects = [
   {
@@ -9,7 +18,7 @@ const projects = [
     description: "In fertilizer plants, Ammonia is a volatile necessity. I co-developed a low-cost, real-time monitoring system to automate safety responses where manual oversight often fails.",
     tech: "MQ-137 (Ammonia) via ADS1115 (16-bit ADC) and DHT22 (Temp/Humidity), ESP-01S (Wi-Fi) streaming to web dashboard, threshold-based logic (30 ppm Ammonia / 30°C) triggering Buzzer & Fan.",
     impact: "Reduced response time to leaks through automated targeted actuation. Created a centralized, auditable data stream. Modular scalability for rapid retrofitting.",
-    images: ["/images/project-ammonia.png"]
+    images: ["/images/IoT Poster.png"]
   },
   {
     title: "The HydroPedal",
@@ -18,7 +27,6 @@ const projects = [
     tech: "Complete 3D assembly in SolidWorks, Ansys Static Structural analysis on frame, CFD for impeller housing optimization, Material selection: AISI 1020 Steel.",
     impact: "Flow rate 25–30 L/min at 20 ft head. 100% reduction in operational fuel costs. Sustainable alternative for independent farmers.",
     images: [
-      "/images/project-hydropedal.png",
       "/images/hydropedal.jpg",
       "/images/hydropedal2.jpg",
     ]
@@ -29,115 +37,158 @@ const projects = [
     description: "Engineered a complete, part-by-part digital reconstruction of an industrial radial drilling machine.",
     tech: "50+ individual components in SolidWorks, mechanical mates for vertical arm travel and spindle rotation, Motion Study for kinematic validation, PhotoView 360 renders and exploded-view animations.",
     impact: "100% assembly transparency, no interference detected in final motion simulation.",
-    images: ["/images/project-drilling.png"]
+    images: [
+      "/images/drilling-isometric.jpg",
+      "/images/drilling-closeup.jpg"
+    ],
+    video: "https://youtu.be/9CxBPs1eGwk"
   }
 ];
 
-function ProjectImageGallery({ images, title }: { images: string[]; title: string }) {
-  const [current, setCurrent] = useState(0);
+function ProjectMediaGallery({ images, video, title, onMediaClick }: { images: string[]; video?: string; title: string, onMediaClick: (idx: number) => void }) {
+  const getEmbedUrl = (url: string) => {
+    if (url.includes("youtu.be")) {
+      const id = url.split("/").pop();
+      return `https://www.youtube.com/embed/${id}?autoplay=0&rel=0`;
+    }
+    if (url.includes("youtube.com")) {
+      const id = new URL(url).searchParams.get("v");
+      return `https://www.youtube.com/embed/${id}?autoplay=0&rel=0`;
+    }
+    return url;
+  };
 
-  if (images.length === 1) {
-    return (
-      <div className="relative aspect-video overflow-hidden border border-border group">
-        <img
-          src={images[0]}
-          alt={title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-background/20 group-hover:bg-transparent transition-colors duration-500" />
-      </div>
-    );
-  }
+  const mediaItems = [
+    ...images.map(img => ({ type: 'image' as const, url: img })),
+    ...(video ? [{ type: 'video' as const, url: getEmbedUrl(video) }] : [])
+  ];
 
   return (
-    <div className="relative aspect-video overflow-hidden border border-border group">
-      <AnimatePresence mode="wait">
-        <motion.img
-          key={current}
-          src={images[current]}
-          alt={`${title} — image ${current + 1}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      </AnimatePresence>
-
-      {/* Prev / Next */}
-      <button
-        onClick={() => setCurrent((current - 1 + images.length) % images.length)}
-        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-background/70 hover:bg-primary/90 text-foreground hover:text-primary-foreground p-1.5 transition-colors"
-        aria-label="Previous image"
-      >
-        <ChevronLeft className="w-4 h-4" />
-      </button>
-      <button
-        onClick={() => setCurrent((current + 1) % images.length)}
-        className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-background/70 hover:bg-primary/90 text-foreground hover:text-primary-foreground p-1.5 transition-colors"
-        aria-label="Next image"
-      >
-        <ChevronRight className="w-4 h-4" />
-      </button>
-
-      {/* Dot indicators */}
-      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
-        {images.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            className={`w-1.5 h-1.5 rounded-full transition-colors ${i === current ? "bg-primary" : "bg-foreground/40"}`}
-            aria-label={`Image ${i + 1}`}
-          />
-        ))}
-      </div>
+    <div className="relative group/gallery">
+      <Carousel className="w-full">
+        <CarouselContent>
+          {mediaItems.map((item, idx) => (
+            <CarouselItem key={idx}>
+              <div 
+                className="relative aspect-video overflow-hidden border border-border bg-muted/20 flex items-center justify-center cursor-zoom-in group/img"
+                onClick={() => onMediaClick(idx)}
+              >
+                {item.type === 'image' ? (
+                  <>
+                    {/* Blurred Backdrop */}
+                    <img 
+                      src={item.url} 
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110"
+                    />
+                    
+                    {/* Main Image */}
+                    <img
+                      src={item.url}
+                      alt={`${title} — image ${idx + 1}`}
+                      className="relative w-full h-full object-contain p-4 z-10 transition-transform duration-500 group-hover/img:scale-105"
+                    />
+                  </>
+                ) : (
+                  <div className="absolute inset-0 w-full h-full p-2 pointer-events-none z-10">
+                    <iframe
+                      src={item.url}
+                      title={`${title} Video`}
+                      className="w-full h-full border-0 rounded-sm"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-black/5 group-hover/img:bg-transparent transition-colors duration-300 z-20" />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        {mediaItems.length > 1 && (
+          <div className="flex justify-end gap-2 mt-4">
+            <CarouselPrevious className="static translate-y-0 h-10 w-10 border-border/50 bg-background/50 hover:bg-primary hover:text-white transition-all" />
+            <CarouselNext className="static translate-y-0 h-10 w-10 border-border/50 bg-background/50 hover:bg-primary hover:text-white transition-all" />
+          </div>
+        )}
+      </Carousel>
     </div>
   );
 }
 
 export function Projects() {
+  const [lightboxState, setLightboxState] = useState<{items: MediaItem[], index: number | null}>({
+    items: [],
+    index: null
+  });
+
+  const getEmbedUrl = (url: string) => {
+    if (url.includes("youtu.be")) {
+      const id = url.split("/").pop();
+      return `https://www.youtube.com/embed/${id}?autoplay=0&rel=0`;
+    }
+    if (url.includes("youtube.com")) {
+      const id = new URL(url).searchParams.get("v");
+      return `https://www.youtube.com/embed/${id}?autoplay=0&rel=0`;
+    }
+    return url;
+  };
+
+  const handleMediaClick = (projectIdx: number, mediaIdx: number) => {
+    const project = projects[projectIdx];
+    const items: MediaItem[] = [
+      ...project.images.map(img => ({ type: "image" as const, url: img, title: project.title })),
+      ...(project.video ? [{ type: "video" as const, url: getEmbedUrl(project.video), title: project.title }] : [])
+    ];
+    setLightboxState({ items, index: mediaIdx });
+  };
+
   return (
-    <section id="projects" className="py-32 bg-card">
-      <div className="container mx-auto px-6 max-w-6xl">
+    <section id="projects" className="py-32 bg-background relative">
+      <div className="container mx-auto px-8 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
-          className="mb-20 text-center"
+          className="mb-24"
         >
-          <h2 className="text-sm font-mono tracking-widest text-primary uppercase mb-4">Blueprints and Prototypes</h2>
+          <h2 className="text-sm font-mono tracking-widest text-primary uppercase mb-4">Selected Work</h2>
           <h3 className="text-3xl md:text-5xl font-serif text-foreground">Projects</h3>
         </motion.div>
 
         <div className="space-y-32">
           {projects.map((project, idx) => (
-            <div key={idx} className={`flex flex-col ${idx % 2 !== 0 ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12 lg:gap-20`}>
-              <motion.div
-                initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8 }}
-                className="w-full lg:w-1/2"
+            <motion.div 
+              key={idx} 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className={`flex flex-col ${idx % 2 !== 0 ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12 lg:gap-20 group/project`}
+            >
+              <div
+                className="w-full lg:w-1/2 group-hover/project:scale-[1.02] transition-transform duration-500 ease-out"
               >
-                <ProjectImageGallery images={project.images} title={project.title} />
-              </motion.div>
+                <ProjectMediaGallery 
+                  images={project.images} 
+                  video={project.video} 
+                  title={project.title} 
+                  onMediaClick={(mediaIdx) => handleMediaClick(idx, mediaIdx)}
+                />
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+              <div
                 className="w-full lg:w-1/2 space-y-6"
               >
                 <div>
-                  <h4 className="text-2xl font-serif text-foreground mb-2">{project.title}</h4>
+                  <h4 className="text-2xl font-serif text-foreground mb-2 group-hover/project:text-primary transition-colors duration-300">{project.title}</h4>
                   <p className="text-primary font-mono text-sm tracking-wide">{project.subtitle}</p>
                 </div>
 
-                <p className="text-muted-foreground font-light leading-relaxed">
+                <TextReveal className="text-muted-foreground font-light leading-relaxed">
                   {project.description}
-                </p>
+                </TextReveal>
 
                 <div className="space-y-4 pt-4 border-t border-border/50">
                   <div>
@@ -146,14 +197,23 @@ export function Projects() {
                   </div>
                   <div>
                     <strong className="text-primary text-sm uppercase tracking-widest block mb-1">Impact</strong>
-                    <p className="text-sm text-muted-foreground font-light">{project.impact}</p>
+                    <TextReveal className="text-sm text-muted-foreground font-light">
+                      {project.impact}
+                    </TextReveal>
                   </div>
                 </div>
-              </motion.div>
-            </div>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>
+
+      <MediaLightbox 
+        items={lightboxState.items}
+        index={lightboxState.index}
+        onClose={() => setLightboxState(prev => ({ ...prev, index: null }))}
+        onNavigate={(newIdx) => setLightboxState(prev => ({ ...prev, index: newIdx }))}
+      />
     </section>
   );
 }

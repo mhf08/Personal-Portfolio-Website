@@ -43,7 +43,7 @@ export function PdfImage({ src, alt = "Document", className = "" }: PdfImageProp
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
-        await page.render({ canvasContext: ctx, viewport: scaledViewport }).promise;
+        await page.render({ canvasContext: ctx, viewport: scaledViewport, canvas: canvas }).promise;
         if (!cancelled) setLoading(false);
       } catch {
         if (!cancelled) {

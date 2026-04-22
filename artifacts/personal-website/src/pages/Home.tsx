@@ -1,5 +1,4 @@
 import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { Education } from "@/components/sections/Education";
@@ -9,6 +8,7 @@ import { Thesis } from "@/components/sections/Thesis";
 import { Projects } from "@/components/sections/Projects";
 import { Achievements } from "@/components/sections/Achievements";
 import { Photography } from "@/components/sections/Photography";
+import { Contact } from "@/components/sections/Contact";
 
 export default function Home() {
   return (
@@ -23,7 +23,7 @@ export default function Home() {
       <Projects />
       <Achievements />
       <Photography />
-      <Footer />
+      <Contact />
     </main>
   );
 }
