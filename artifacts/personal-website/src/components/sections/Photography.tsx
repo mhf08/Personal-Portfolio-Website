@@ -14,7 +14,7 @@ const photoSeries = [
     images: [
       { url: "/images/genba/1670329146012.jpg", caption: "The ghost of a machine, etched in rust and steel." },
       { url: "/images/genba/1671016098360.jpg", caption: "Framing the urban chaos; shadows caught in a lattice of steel." },
-      { url: "/images/genba/1671120773254.jpg", caption: "The structural ghost of a past era, dreaming of order amidst the silent geometry of time." },
+      { url: "/images/genba/1671120773254.jpg", caption: "The silent geometry of broken time." },
       { url: "/images/genba/1671120773270.jpg", caption: "A symphony of textures; where concrete meets the ephemeral." },
       { url: "/images/genba/1671120773287.jpg", caption: "The Genba is not just a place; it's a state of observation." },
       { url: "/images/genba/1671120773312.jpg", caption: "The street is a living organism, pulsing with forgotten stories." },
