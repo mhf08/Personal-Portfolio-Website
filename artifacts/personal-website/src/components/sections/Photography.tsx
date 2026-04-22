@@ -14,13 +14,13 @@ const photoSeries = [
     images: [
       { url: "/images/genba/1670329146012.jpg", caption: "The ghost of a machine, etched in rust and steel." },
       { url: "/images/genba/1671016098360.jpg", caption: "Framing the urban chaos; shadows caught in a lattice of steel." },
-      { url: "/images/genba/1671120773254.jpg", caption: "Humanity is often found in the things we leave behind." },
+      { url: "/images/genba/1671120773254.jpg", caption: "A blueprint of memory: where the structural integrity of the past meets the entropy of the present." },
       { url: "/images/genba/1671120773270.jpg", caption: "A symphony of textures; where concrete meets the ephemeral." },
       { url: "/images/genba/1671120773287.jpg", caption: "The Genba is not just a place; it's a state of observation." },
       { url: "/images/genba/1671120773312.jpg", caption: "The street is a living organism, pulsing with forgotten stories." },
       { url: "/images/genba/PXL_20220315_164108162.jpg", caption: "Rhythm found in the mundane; an engineer's dream of order." },
       { url: "/images/genba/PXL_20250602_160018670 (4).jpg", caption: "In the world of chances, the result is beautifully uncertain." },
-      { url: "/images/genba/PXL_20251222_160206575.jpg", caption: "Finality in focus. The moment the chaos becomes a composition." },
+      { url: "/images/genba/PXL_20251222_160206575.jpg", caption: "Humanity is often found in the things we leave behind." },
     ]
   },
   {
