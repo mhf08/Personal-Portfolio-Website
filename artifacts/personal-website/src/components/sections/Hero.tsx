@@ -61,10 +61,50 @@ export function Hero() {
             className="h-px w-24 bg-primary mx-auto mb-6 origin-center"
           />
 
-          <div className="mb-10">
-            <TextReveal className="text-xl md:text-2xl text-muted-foreground font-light text-center">
-              Industrial and Production Engineer | Machine Learning, Supply Chain Management, Quality Control | Visual Storyteller
-            </TextReveal>
+          <div className="mb-12 flex flex-col items-center gap-6">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+              className="text-xl md:text-2xl font-medium tracking-tight text-foreground"
+            >
+              Industrial and Production Engineer
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.0, duration: 1 }}
+              className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2"
+            >
+              {[
+                "Machine Learning",
+                "Supply Chain Management",
+                "Quality Control",
+              ].map((skill, i) => (
+                <div key={skill} className="flex items-center">
+                  {i > 0 && (
+                    <div className="w-1 h-1 rounded-full bg-primary/40 mr-4" />
+                  )}
+                  <span className="text-sm md:text-base font-mono text-muted-foreground uppercase tracking-[0.2em]">
+                    {skill}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.4, duration: 0.8 }}
+              className="flex items-center gap-3"
+            >
+              <div className="h-px w-8 bg-primary/20" />
+              <span className="text-lg md:text-xl font-serif italic text-primary/80">
+                Visual Storyteller
+              </span>
+              <div className="h-px w-8 bg-primary/20" />
+            </motion.div>
           </div>
 
           <motion.div
