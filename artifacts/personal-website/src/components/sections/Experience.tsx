@@ -137,7 +137,7 @@ export function Experience() {
                         variants={itemVariants}
                         className="flex items-start gap-4 text-muted-foreground leading-relaxed font-light group/item"
                       >
-                        <span className="text-primary mt-1.5 opacity-50 group-hover/item:opacity-100 transition-opacity">♦</span>
+                        <span className="text-primary mt-[5px] text-[10px] opacity-50 group-hover/item:opacity-100 transition-opacity">♦</span>
                         <TextReveal>{item}</TextReveal>
                       </motion.li>
                     ))}
