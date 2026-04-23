@@ -10,6 +10,16 @@ import {
 } from "@/components/ui/carousel";
 import { MediaLightbox, type MediaItem } from "@/components/ui/MediaLightbox";
 
+const RANCON_MEDIA: MediaItem[] = [
+  { url: "/images/rancon/rancon-7.JPG", type: "image", title: "Industrial Attachment at RANCON" },
+  { url: "/images/rancon/rancon-1.jpg", type: "image", title: "Team Meeting at RANCON" },
+  { url: "/images/rancon/rancon-2.jpg", type: "image", title: "Production Line Observation" },
+  { url: "/images/rancon/rancon-3.jpg", type: "image", title: "Quality Control Systems" },
+  { url: "/images/rancon/rancon-4.jpg", type: "image", title: "Inventory Management Study" },
+  { url: "/images/rancon/rancon-5.jpg", type: "image", title: "Process Optimization Review" },
+  { url: "/images/rancon/rancon-6.JPG", type: "image", title: "Facility Overview" },
+];
+
 const EXPERIENCES = [
   {
     company: "RANCON Auto Industries Ltd. & RANCON Motorbikes Ltd.",
