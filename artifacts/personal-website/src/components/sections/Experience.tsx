@@ -20,6 +20,11 @@ const RANCON_MEDIA: MediaItem[] = [
   { url: "/images/rancon/rancon-6.JPG", type: "image", title: "Facility Overview" },
 ];
 
+const ANWAR_MEDIA: MediaItem[] = [
+  { url: "/images/anwar-visit/anwar-1.jpg", type: "image", title: "Industrial Visit at A1 Polymer" },
+  { url: "/images/anwar-visit/anwar-2.jpg", type: "image", title: "Production Facility Observation" },
+];
+
 const EXPERIENCES = [
   {
     company: "RANCON Auto Industries Ltd. & RANCON Motorbikes Ltd.",
@@ -45,7 +50,7 @@ const EXPERIENCES = [
       "Engaged with production planning and supply chain teams to understand SKU management in a high-demand market.",
       "Observed the practical application of corporate vision and quality commitment in a major industrial concern."
     ],
-    media: []
+    media: ANWAR_MEDIA
   }
 ];
 
