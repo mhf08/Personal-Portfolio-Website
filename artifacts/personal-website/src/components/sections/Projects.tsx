@@ -18,7 +18,10 @@ const projects = [
     description: "In fertilizer plants, Ammonia is a volatile necessity. I co-developed a low-cost, real-time monitoring system to automate safety responses where manual oversight often fails.",
     tech: "MQ-137 (Ammonia) via ADS1115 (16-bit ADC) and DHT22 (Temp/Humidity), ESP-01S (Wi-Fi) streaming to web dashboard, threshold-based logic (30 ppm Ammonia / 30°C) triggering Buzzer & Fan.",
     impact: "Reduced response time to leaks through automated targeted actuation. Created a centralized, auditable data stream. Modular scalability for rapid retrofitting.",
-    images: ["/images/IoT Poster.png"]
+    images: [
+      "/images/IoT Poster.png",
+      "/images/iot-hardware.jfif"
+    ]
   },
   {
     title: "The HydroPedal",
